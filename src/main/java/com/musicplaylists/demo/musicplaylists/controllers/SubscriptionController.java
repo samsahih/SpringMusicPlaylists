@@ -26,7 +26,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(subscription);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<SubscriptionResponseDTO>> getAllSubscriptions() {
         List<SubscriptionResponseDTO> subscriptions = userService.getAllSubscriptions();
         return ResponseEntity.ok(subscriptions);

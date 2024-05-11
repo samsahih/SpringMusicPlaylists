@@ -12,6 +12,8 @@ public class UserLoginDTO {
     @NotEmpty(message = "Password is mandatory")
     public String password;
 
-    @Enumerated(EnumType.STRING)
-    public UserType userType;
+    public UserLoginDTO(String email, String password) {
+        this.username = email;
+        this.password = password;
+    }
 }

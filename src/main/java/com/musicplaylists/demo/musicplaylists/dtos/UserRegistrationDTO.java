@@ -23,4 +23,14 @@ public class UserRegistrationDTO {
 
     @Enumerated(EnumType.STRING)
     public UserType userType;
+
+    public UserRegistrationDTO(){}
+
+    public UserRegistrationDTO(String email, String username, String password, String confirmPassword, UserType userType) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        this.userType = userType;
+    }
 }

@@ -1,7 +1,6 @@
 package com.musicplaylists.demo.musicplaylists.services;
 
 import com.musicplaylists.demo.musicplaylists.dtos.PlaylistCreationDTO;
-import com.musicplaylists.demo.musicplaylists.dtos.PlaylistUpdateDTO;
 import com.musicplaylists.demo.musicplaylists.dtos.PlaylistCreationResponseDTO;
 import com.musicplaylists.demo.musicplaylists.entities.NormalUser;
 import com.musicplaylists.demo.musicplaylists.entities.Playlist;
@@ -54,6 +53,7 @@ public class PlaylistService {
         PlaylistCreationResponseDTO responseDTO = new PlaylistCreationResponseDTO();
         responseDTO.name = playlist.getName();
         responseDTO.description = playlist.getDescription();
+        responseDTO.id = (long) playlist.getId();
 
         return responseDTO;
     }

@@ -38,6 +38,7 @@ public class SecurityConfig  {
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/api-docs/swagger-config/**", "/swagger-resources/**", "/swagger-resources", "/api-docs/**", "/proxy/**").permitAll()
                         .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                         .requestMatchers("/api/playlists", "/api/playlists/**").hasAuthority("NORMAL") // Require role "NORMAL" for playlists
+                        .requestMatchers("/api/songs", "/api/songs/**").hasAuthority("NORMAL") // Require role "NORMAL" for playlists
                         .requestMatchers("/api/subscriptions", "/api/subscriptions/**").hasAuthority("ADMIN") // Require role "ADMIN" for subscriptions
                         .anyRequest().authenticated()
                 )
