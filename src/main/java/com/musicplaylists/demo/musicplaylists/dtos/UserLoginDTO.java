@@ -1,8 +1,5 @@
 package com.musicplaylists.demo.musicplaylists.dtos;
 
-import com.musicplaylists.demo.musicplaylists.entities.UserType;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 
 public class UserLoginDTO {

@@ -1,6 +1,8 @@
-package com.musicplaylists.demo.musicplaylists.entities;
+package com.musicplaylists.demo.musicplaylists.unittests.entities;
 
 
+import com.musicplaylists.demo.musicplaylists.entities.Playlist;
+import com.musicplaylists.demo.musicplaylists.entities.Song;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

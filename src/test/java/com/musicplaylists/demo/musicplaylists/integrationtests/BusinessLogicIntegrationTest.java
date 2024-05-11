@@ -8,10 +8,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -62,6 +60,7 @@ public class BusinessLogicIntegrationTest {
         converter.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
         messageConverters.add(converter);
         this.restTemplate.setMessageConverters(messageConverters);
+
         BASEURI = "http://localhost:" + port;
     }
 
@@ -123,7 +122,10 @@ public class BusinessLogicIntegrationTest {
         assertThat(response.getBody()).isNotNull();
     }
 
-    // Helper methods to interact with controllers
+
+
+    // Helper methods to interact with controllers (ideally separated into a helper class)
+
     private HttpHeaders createHeaders(String authToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(authToken);
@@ -134,7 +136,7 @@ public class BusinessLogicIntegrationTest {
 
     private Long createUser(String email, String username, String password, UserType type) {
         System.out.println("Creating user: " + email);
-        UserRegistrationDTO registrationDTO = new UserRegistrationDTO(email, username, password, password, UserType.NORMAL);
+        UserRegistrationDTO registrationDTO = new UserRegistrationDTO(email, username, password, password, type);
         ResponseEntity<User> response = restTemplate.postForEntity(BASEURI + "/api/auth/register", registrationDTO, User.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         return response.getBody().getId();

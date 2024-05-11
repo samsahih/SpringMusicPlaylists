@@ -82,4 +82,11 @@ public class Playlist {
     public Object getId() {
         return id;
     }
+
+    /**
+     * Sets the ID of the playlist. This method should only be used for testing purposes.
+     */
+    public void setId(long l) {
+        id = l;
+    }
 }

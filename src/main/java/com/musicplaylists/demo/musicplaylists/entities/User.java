@@ -116,6 +116,9 @@ public class User {
         this.roles = roles;
     }
 
+    /**
+     * Sets the ID of the User. This method should only be used for testing purposes.
+     */
     public void setId(long l) {
         this.id = l;
     }

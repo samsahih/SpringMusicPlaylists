@@ -1,4 +1,4 @@
-package com.musicplaylists.demo.musicplaylists.services;
+package com.musicplaylists.demo.musicplaylists.unittests.services;
 
 import com.musicplaylists.demo.musicplaylists.dtos.SongCreationDTO;
 import com.musicplaylists.demo.musicplaylists.entities.NormalUser;
@@ -8,6 +8,7 @@ import com.musicplaylists.demo.musicplaylists.entities.User;
 import com.musicplaylists.demo.musicplaylists.repositories.PlaylistRepository;
 import com.musicplaylists.demo.musicplaylists.repositories.SongRepository;
 import com.musicplaylists.demo.musicplaylists.repositories.UserRepository;
+import com.musicplaylists.demo.musicplaylists.services.SongService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

@@ -21,14 +21,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/playlists")
-public class ManagePlaylistsController {
+public class PlaylistController {
 
     private final PlaylistService playlistService;
     private final SongService songService;
     private final ProfileUtils profileUtils;
 
     @Autowired
-    public ManagePlaylistsController(PlaylistService playlistService, SongService songService, ProfileUtils profileUtils) {
+    public PlaylistController(PlaylistService playlistService, SongService songService, ProfileUtils profileUtils) {
         this.playlistService = playlistService;
         this.songService = songService;
         this.profileUtils = profileUtils;

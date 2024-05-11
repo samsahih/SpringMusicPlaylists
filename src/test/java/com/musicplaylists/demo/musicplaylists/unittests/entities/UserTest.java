@@ -1,5 +1,6 @@
-package com.musicplaylists.demo.musicplaylists.entities;
+package com.musicplaylists.demo.musicplaylists.unittests.entities;
 
+import com.musicplaylists.demo.musicplaylists.entities.User;
 import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
 

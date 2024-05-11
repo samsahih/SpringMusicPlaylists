@@ -52,6 +52,9 @@ public class NormalUser {
         this.user = user;
     }
 
+    /**
+     * Sets the ID of the NormalUser. This method should only be used for testing purposes.
+     */
     public void setId(long l) {
         this.id = l;
     }

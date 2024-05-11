@@ -1,9 +1,10 @@
-package com.musicplaylists.demo.musicplaylists.services;
+package com.musicplaylists.demo.musicplaylists.unittests.services;
 
 import com.musicplaylists.demo.musicplaylists.entities.NormalUser;
 import com.musicplaylists.demo.musicplaylists.entities.User;
 import com.musicplaylists.demo.musicplaylists.repositories.NormalUserRepository;
 import com.musicplaylists.demo.musicplaylists.repositories.UserRepository;
+import com.musicplaylists.demo.musicplaylists.services.NormalUserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

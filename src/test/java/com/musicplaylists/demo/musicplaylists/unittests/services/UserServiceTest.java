@@ -1,4 +1,4 @@
-package com.musicplaylists.demo.musicplaylists.services;
+package com.musicplaylists.demo.musicplaylists.unittests.services;
 
 import com.musicplaylists.demo.musicplaylists.dtos.UserRegistrationDTO;
 import com.musicplaylists.demo.musicplaylists.entities.NormalUser;
@@ -8,6 +8,7 @@ import com.musicplaylists.demo.musicplaylists.entities.UserType;
 import com.musicplaylists.demo.musicplaylists.repositories.NormalUserRepository;
 import com.musicplaylists.demo.musicplaylists.repositories.SubscriptionRepository;
 import com.musicplaylists.demo.musicplaylists.repositories.UserRepository;
+import com.musicplaylists.demo.musicplaylists.services.UserService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

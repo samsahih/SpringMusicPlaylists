@@ -1,5 +1,9 @@
-package com.musicplaylists.demo.musicplaylists.entities;
+package com.musicplaylists.demo.musicplaylists.unittests.entities;
 
+import com.musicplaylists.demo.musicplaylists.entities.NormalUser;
+import com.musicplaylists.demo.musicplaylists.entities.Playlist;
+import com.musicplaylists.demo.musicplaylists.entities.Subscription;
+import com.musicplaylists.demo.musicplaylists.entities.User;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

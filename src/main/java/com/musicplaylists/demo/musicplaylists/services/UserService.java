@@ -1,7 +1,6 @@
 package com.musicplaylists.demo.musicplaylists.services;
 
 import com.musicplaylists.demo.musicplaylists.dtos.SubscriptionResponseDTO;
-import com.musicplaylists.demo.musicplaylists.dtos.UserDetailsDTO;
 import com.musicplaylists.demo.musicplaylists.dtos.UserRegistrationDTO;
 import com.musicplaylists.demo.musicplaylists.dtos.UserResponseDTO;
 import com.musicplaylists.demo.musicplaylists.entities.*;
