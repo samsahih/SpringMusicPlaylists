@@ -17,6 +17,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 import org.testcontainers.containers.MySQLContainer;
@@ -105,6 +106,9 @@ public class BusinessLogicIntegrationTest {
 
         // View user's subscription
         getUserSubscription("user1", authToken);
+
+        // Check that user is not allowed to operate anymore
+        Long song3 = createSongUnauthorized("Song 3", "Artist 2", 240, "Pop", authToken);
     }
 
     @Test
@@ -175,6 +179,25 @@ public class BusinessLogicIntegrationTest {
         ResponseEntity<Song> response = restTemplate.postForEntity(BASEURI + "/api/songs", new HttpEntity<>(songDTO, createHeaders(accessToken)), Song.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         return response.getBody().getId();
+    }
+
+    private Long createSongUnauthorized(String title, String artist, int duration, String genre, String accessToken) {
+        SongCreationDTO songDTO = new SongCreationDTO();
+        songDTO.title = title;
+        songDTO.artist = artist;
+        songDTO.duration = duration;
+        songDTO.genre = genre;
+
+        try {
+            restTemplate.postForEntity(BASEURI + "/api/songs", new HttpEntity<>(songDTO, createHeaders(accessToken)), Song.class);
+        } catch (HttpClientErrorException.Unauthorized ex) {
+            // Exception thrown as expected
+            assertThat(ex.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+            return null; // No song ID to return
+        }
+
+        // If no exception is thrown, return null
+        return null;
     }
 
     private Long createPlaylist(String username, String name, String description, String accessToken) {

@@ -10,6 +10,7 @@ import com.musicplaylists.demo.musicplaylists.repositories.SubscriptionRepositor
 import com.musicplaylists.demo.musicplaylists.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -130,5 +131,12 @@ public class UserService {
         // Update the subscription status
         subscription.setActive(active);
         subscriptionRepository.save(subscription);
+    }
+
+    public boolean checkIfUserActive(Authentication authentication) {
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username);
+        NormalUser normalUser = normalUserService.findNormalUserByUsername(username);
+        return user != null && normalUser.getSubscription().isActive();
     }
 }
