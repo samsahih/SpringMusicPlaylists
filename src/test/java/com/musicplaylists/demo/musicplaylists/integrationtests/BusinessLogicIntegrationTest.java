@@ -99,6 +99,12 @@ public class BusinessLogicIntegrationTest {
         // Remove songs from playlists
         removeSongFromPlaylist(songId1, Collections.singletonList(playlistId1), authToken);
         removeSongFromPlaylist(songId2, Collections.singletonList(playlistId2), authToken);
+
+        // Modify user's subscription status
+        updateUserSubscriptionStatus("user1", false, authToken);
+
+        // View user's subscription
+        getUserSubscription("user1", authToken);
     }
 
     @Test
@@ -190,5 +196,30 @@ public class BusinessLogicIntegrationTest {
     private void removeSongFromPlaylist(Long songId, List<Long> playlistId, String accessToken) {
         String url = String.format(BASEURI + "/api/playlists/song/%d", songId);
         restTemplate.exchange(url, HttpMethod.DELETE, new HttpEntity<>(playlistId, createHeaders(accessToken)), ResponseEntity.class);
+    }
+
+    private void updateUserSubscriptionStatus(String username, boolean active, String authToken) {
+        String url = String.format(BASEURI + "/api/subscriptions/%s?active=%s", username, active);
+        ResponseEntity<Void> response = restTemplate.exchange(
+                url,
+                HttpMethod.PUT,
+                new HttpEntity<>(createHeaders(authToken)),
+                Void.class
+        );
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
+    private void getUserSubscription(String username, String authToken) {
+        String url = String.format(BASEURI + "/api/subscriptions/%s", username);
+        ResponseEntity<SubscriptionResponseDTO> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                new HttpEntity<>(createHeaders(authToken)),
+                SubscriptionResponseDTO.class
+        );
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        SubscriptionResponseDTO subscription = response.getBody();
+        assertThat(subscription).isNotNull();
+        assertThat(subscription.active).isFalse();
     }
 }

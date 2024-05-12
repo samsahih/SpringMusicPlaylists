@@ -53,4 +53,8 @@ public class Subscription {
             user.setSubscription(this);
         }
     }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

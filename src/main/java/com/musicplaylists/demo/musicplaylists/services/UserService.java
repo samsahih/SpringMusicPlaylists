@@ -115,4 +115,20 @@ public class UserService {
 
         return userDTO;
     }
+
+    @Transactional
+    public void updateUserSubscriptionStatus(String username, boolean active) {
+        // Find the NormalUser by username
+        NormalUser normalUser = normalUserService.findNormalUserByUsername(username);
+
+        // Get the subscription associated with the NormalUser
+        Subscription subscription = normalUser.getSubscription();
+        if (subscription == null) {
+            throw new IllegalArgumentException("Subscription not found");
+        }
+
+        // Update the subscription status
+        subscription.setActive(active);
+        subscriptionRepository.save(subscription);
+    }
 }

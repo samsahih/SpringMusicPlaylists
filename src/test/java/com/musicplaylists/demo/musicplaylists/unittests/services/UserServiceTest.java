@@ -8,6 +8,7 @@ import com.musicplaylists.demo.musicplaylists.entities.UserType;
 import com.musicplaylists.demo.musicplaylists.repositories.NormalUserRepository;
 import com.musicplaylists.demo.musicplaylists.repositories.SubscriptionRepository;
 import com.musicplaylists.demo.musicplaylists.repositories.UserRepository;
+import com.musicplaylists.demo.musicplaylists.services.NormalUserService;
 import com.musicplaylists.demo.musicplaylists.services.UserService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -38,6 +40,9 @@ public class UserServiceTest {
 
     @Mock
     private NormalUserRepository normalUserRepository;
+
+    @Mock
+    private NormalUserService normalUserService;
 
     @InjectMocks
     private UserService userService;
@@ -180,5 +185,54 @@ public class UserServiceTest {
 
         // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> userService.registerUser(registrationDTO));
+    }
+
+    @Test
+    public void testUpdateUserSubscriptionStatus_Success() {
+        String username = "testuser";
+        String email = "testuser@example.com";
+        String password = "testpassword";
+        String confirmPassword = "testpassword";
+        boolean active = true;
+
+        UserRegistrationDTO registrationDTO = new UserRegistrationDTO();
+        registrationDTO.username = username;
+        registrationDTO.email = email;
+        registrationDTO.password = password;
+        registrationDTO.confirmPassword = confirmPassword;
+        registrationDTO.userType = UserType.NORMAL;
+
+        User mockedUser = new User(); // Create a mocked user object
+        mockedUser.setId(1L); // Set a valid ID
+
+        // Create a mocked NormalUser object
+        NormalUser normalUser = new NormalUser();
+        Subscription subscription = new Subscription(LocalDate.now(), LocalDate.now().plusMonths(1), !active); // Create a subscription with the opposite of the desired status
+        normalUser.setSubscription(subscription);
+        normalUser.setId(1L);
+
+        // Set up the relationship between User and NormalUser
+        mockedUser.setNormalUser(normalUser);
+        normalUser.setUser(mockedUser);
+
+        when(normalUserService.findNormalUserByUsername("testuser")).thenReturn(normalUser);
+        // Act
+        userService.updateUserSubscriptionStatus(username, active);
+
+        // Assert
+        assertTrue(normalUser.getSubscription().isActive() == active);
+    }
+
+    @Test
+    public void testUpdateUserSubscriptionStatus_UserNotFound_ThrowException() {
+        // Arrange
+        String username = "nonexistentuser";
+        boolean active = true; // Set the desired status
+
+        // Configure Mockito to use lenient strictness
+        Mockito.lenient().when(userRepository.findByUsername(username)).thenReturn(null);
+
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> userService.updateUserSubscriptionStatus(username, active));
     }
 }

@@ -39,7 +39,8 @@ public class SecurityConfig  {
                         .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                         .requestMatchers("/api/playlists", "/api/playlists/**").hasAuthority("NORMAL") // Require role "NORMAL" for playlists
                         .requestMatchers("/api/songs", "/api/songs/**").hasAuthority("NORMAL") // Require role "NORMAL" for playlists
-                        .requestMatchers("/api/subscriptions", "/api/subscriptions/**").hasAuthority("ADMIN") // Require role "ADMIN" for subscriptions
+                        .requestMatchers("/api/subscriptions").hasAuthority("ADMIN") // Require role "ADMIN" for subscriptions
+                        .requestMatchers("/api/subscriptions/{username}").hasAuthority("NORMAL") // Require role "NORMAL" for subscriptions
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

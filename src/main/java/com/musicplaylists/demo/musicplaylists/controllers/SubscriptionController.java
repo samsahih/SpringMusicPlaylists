@@ -3,10 +3,7 @@ package com.musicplaylists.demo.musicplaylists.controllers;
 import com.musicplaylists.demo.musicplaylists.dtos.SubscriptionResponseDTO;
 import com.musicplaylists.demo.musicplaylists.services.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +27,11 @@ public class SubscriptionController {
     public ResponseEntity<List<SubscriptionResponseDTO>> getAllSubscriptions() {
         List<SubscriptionResponseDTO> subscriptions = userService.getAllSubscriptions();
         return ResponseEntity.ok(subscriptions);
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<Void> updateUserSubscriptionStatus(@PathVariable String username, @RequestParam boolean active) {
+        userService.updateUserSubscriptionStatus(username, active);
+        return ResponseEntity.noContent().build();
     }
 }
