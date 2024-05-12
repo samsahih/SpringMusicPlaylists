@@ -6,6 +6,9 @@ import com.musicplaylists.demo.musicplaylists.entities.User;
 import com.musicplaylists.demo.musicplaylists.services.ProfileUtils;
 import com.musicplaylists.demo.musicplaylists.services.UserAuthService;
 import com.musicplaylists.demo.musicplaylists.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,11 +33,21 @@ public class AuthController {
         this.profileUtils = profileUtils;
     }
 
+    @Operation(summary = "Endpoint for user authentication.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Login successful"),
+            @ApiResponse(responseCode = "400", description = "Validation errors occurred")
+    })
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid UserLoginDTO loginReq, BindingResult bindingResult)  {
         return handleValidationResult(bindingResult, () -> ResponseEntity.ok(userAuthService.login(loginReq)), profileUtils);
     }
 
+    @Operation(summary = "Endpoint for user registration.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "User registered successfully"),
+            @ApiResponse(responseCode = "400", description = "Validation errors occurred")
+    })
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody @Valid UserRegistrationDTO registrationDTO, BindingResult bindingResult) {
         return handleValidationResult(bindingResult, () -> {

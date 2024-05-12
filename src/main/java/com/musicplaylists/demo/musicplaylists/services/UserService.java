@@ -136,7 +136,15 @@ public class UserService {
     public boolean checkIfUserActive(Authentication authentication) {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return false; // User not found
+        }
+
         NormalUser normalUser = normalUserService.findNormalUserByUsername(username);
-        return user != null && normalUser.getSubscription().isActive();
+        if (normalUser == null || normalUser.getSubscription() == null) {
+            return false; // Normal user or subscription not found
+        }
+
+        return normalUser.getSubscription().isActive();
     }
 }
